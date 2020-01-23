@@ -11,6 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: 'ros-industrial/industrial_ci@master'
         env: ${{matrix.env}}
-      - run: git clone --quiet --depth=1 https://github.com/ros-industrial/industrial_ci.git .industrial_ci -b master
-      - run: .industrial_ci/ci.sh ${{matrix.env}} TARGET_REPO_NAME="${GITHUB_REPOSITORY##*/}" TARGET_REPO_PATH="${GITHUB_WORKSPACE}"
