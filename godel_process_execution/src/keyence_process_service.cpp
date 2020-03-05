@@ -73,16 +73,16 @@ bool godel_process_execution::KeyenceProcessService::executeProcess(
 {
   ensenso::EnsensoGuard guard;
   // Check for keyence existence
-  if (!keyence_client_.exists())
-  {
-    ROS_ERROR_STREAM("Keyence ROS server is not available on service "
-                      << keyence_client_.getService());
-    return false;
-  }
+  // if (!keyence_client_.exists())
+  // {
+  //   ROS_ERROR_STREAM("Keyence ROS server is not available on service "
+  //                     << keyence_client_.getService());
+  //   return false;
+  // }
 
-  // Reset the scans prior to execution
-  std_srvs::Trigger dummy_trigger;
-  reset_scan_server_.call(dummy_trigger);
+  // // Reset the scans prior to execution
+  // std_srvs::Trigger dummy_trigger;
+  // reset_scan_server_.call(dummy_trigger);
 
   // Prepare the trajectories to run
   godel_msgs::TrajectoryExecution srv_approach;
@@ -103,14 +103,14 @@ bool godel_process_execution::KeyenceProcessService::executeProcess(
     return false;
   }
 
-  keyence_experimental::ChangeProgram keyence_srv;
-  keyence_srv.request.program_no = KEYENCE_PROGRAM_LASER_ON;
+  // keyence_experimental::ChangeProgram keyence_srv;
+  // keyence_srv.request.program_no = KEYENCE_PROGRAM_LASER_ON;
 
-  if (!keyence_client_.call(keyence_srv))
-  {
-    ROS_ERROR_STREAM("Unable to activate keyence (program " << KEYENCE_PROGRAM_LASER_ON << ").");
-    return false;
-  }
+  // if (!keyence_client_.call(keyence_srv))
+  // {
+  //   ROS_ERROR_STREAM("Unable to activate keyence (program " << KEYENCE_PROGRAM_LASER_ON << ").");
+  //   return false;
+  // }
 
   if (!real_client_.call(srv_process))
   {
@@ -118,14 +118,14 @@ bool godel_process_execution::KeyenceProcessService::executeProcess(
     return false;
   }
 
-  // Turn keyence off
-  keyence_srv.request.program_no = KEYENCE_PROGRAM_LASER_OFF;
-  if (!keyence_client_.call(keyence_srv))
-  {
-    ROS_ERROR_STREAM("Unable to de-activate keyence (program " << KEYENCE_PROGRAM_LASER_OFF
-                                                              << ").");
-    return false;
-  }
+  // // Turn keyence off
+  // keyence_srv.request.program_no = KEYENCE_PROGRAM_LASER_OFF;
+  // if (!keyence_client_.call(keyence_srv))
+  // {
+  //   ROS_ERROR_STREAM("Unable to de-activate keyence (program " << KEYENCE_PROGRAM_LASER_OFF
+  //                                                             << ").");
+  //   return false;
+  // }
 
   if (!real_client_.call(srv_depart))
   {
