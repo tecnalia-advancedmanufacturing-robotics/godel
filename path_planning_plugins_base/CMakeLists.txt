@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
     geometry_msgs
     pcl_ros
     roscpp
+    godel_msgs
 )
 
 set(path_planning_plugins_HDRS
@@ -26,6 +27,7 @@ catkin_package(
     geometry_msgs
     pcl_ros
     roscpp
+    godel_msgs
 )
 
 ###########
